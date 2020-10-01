@@ -14,6 +14,10 @@ class API:
         json_content = http.get(self.url+uri)
         return [model.Card.from_json(card_json) for card_json in json_content]
     
+    def delete_card(self, user_id, card_id):
+        uri = f"users/{user_id}/cards/{card_id}"
+        json_content = http.delete(self.url+uri)
+        return json_content['id']
     
 __all__=[
     API

@@ -10,4 +10,11 @@ class HttpTests(unittest.TestCase):
 
         with self.assertRaises(Exception):
             http.get("http://fail.test/uri")
-            
+
+
+    def test_delete_raise_error(self):
+            """ Connections error should be raised if appears"""
+
+            with self.assertRaises(Exception):
+                http.delete("http://fail.test/uri")
+                

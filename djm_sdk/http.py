@@ -1,4 +1,5 @@
 import requests
+from requests.api import request
 
 
 def get(url):
@@ -9,5 +10,7 @@ def get(url):
 def post(uri, data):
     pass
 
-def delete(uri):
-    pass
+def delete(url):
+    req = requests.delete(url)
+    req.raise_for_status()
+    return req.json()
