@@ -1,6 +1,6 @@
 # Dejamobile Take Home - Backend API SDK
 
-Implements a SDK to use the backend API.
+Implements a SDK to use the [backend API](https://github.com/antbht/djm-back). This SDK could be embed into Python clients. [See here an example](https://github.com/antbht/djm-client).
 
 ##  Use in your app
 
@@ -48,10 +48,12 @@ e290b6aa-03a9-11eb-8b48-3c15c2c07289 : XXXXXXXXXXXX6789
 
 ### Initialize the project
 
-This is a Python project. For good practices and environments isolation purpose, we advise to run it into a virtual envrionment.
+This is a Python project. For good practices and environments isolation purpose, we advise you to run it into a virtual envrionment.
 
 ```lang=bash
-cd /path/to/djm_sdk
+cd /path/to/workspace
+git clone https://github.com/antbht/djm-sdk
+cd djm-sdk
 virtualenv .
 source bin/activate
 pip install -r requirements.txt
@@ -59,10 +61,10 @@ pip install -r requirements.txt
 
 ### Run the unit tests
 
-Functions of this project are covered by unit tests. To execute them, please run this script
+Functions of this project are covered by unit tests. To execute them, please run this script :
 
 ```lang=bash
-cd /path/to/djm_sdk
+cd /path/to/djm-sdk
 source bin/activate
 python -m unittest unit_tests/*.py
 ```
@@ -70,7 +72,7 @@ python -m unittest unit_tests/*.py
 ### Build the wheel
 
 ```lang=bash
-cd /path/to/djm_sdk
+cd /path/to/djm-sdk
 source bin/activate
 python setup.py bdist_wheel
 ```
@@ -78,11 +80,11 @@ python setup.py bdist_wheel
 ### Use the sample of ci script
 
 This script simulates a CI script which could be implements for GitlabCI, jenkins, ... CI/CD platforms. It :
-- Initialize the virtualenv
-- Run unit tests
-- Build the wheel
+- Initializes the virtualenv
+- Runs unit tests
+- Builds the wheel
 
 ```lang=bash
-cd /path/to/djm_djk
+cd /path/to/djm-djk
 bash ci_script.sh
 ```
