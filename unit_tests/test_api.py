@@ -36,3 +36,14 @@ class HttpTests(unittest.TestCase):
             app = api.API("ip", "port")
             card_id = app.delete_card('1234', 'e290b6aa-03a9-11eb-8b48-3c15c2c07228')
             self.assertEqual(card_id, 'e290b6aa-03a9-11eb-8b48-3c15c2c07228')
+
+    def test_add_card(self):
+        """ Get cards should request it to backend and return a lsit of card objects"""
+        cards_mock = [{'id': 'e290b6aa-03a9-11eb-8b48-3c15c2c07228', 'hidden_pan':'XXXXXXXXXXXX4567'}]
+        with unittest.mock.patch("requests.post", return_value=MockResponse(cards_mock, 200)) as requests_mock:
+            app = api.API("ip", "port")
+            cards = app.add_card('1234', '1234567891234567')
+            for card in cards:
+                self.assertIsInstance(card, model.Card)
+            self.assertEqual(cards[0].id, 'e290b6aa-03a9-11eb-8b48-3c15c2c07228')
+            self.assertEqual(cards[0].hidden_pan, 'XXXXXXXXXXXX4567')

@@ -18,6 +18,13 @@ class API:
         uri = f"users/{user_id}/cards/{card_id}"
         json_content = http.delete(self.url+uri)
         return json_content['id']
+
+    def add_card(self, user_id, pan):
+        uri = f"users/{user_id}/cards"
+        data = {'pan': pan}
+        json_content = http.post(self.url+uri, data)
+        return [model.Card.from_json(card_json) for card_json in json_content]
+
     
 __all__=[
     API
