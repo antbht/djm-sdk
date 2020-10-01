@@ -1,61 +1,88 @@
 # Dejamobile Take Home - Backend API SDK
 
-Implements a backend API.
+Implements a SDK to use the backend API.
 
-Illustrate :
-- Capacity of develop a software
-- Capacity of desiging a REST API
-- Importance of packaging
-- TDD
-- Deployment
-- CI scripts
+##  Use in your app
 
-##  API Endpoints
+### Add a dependency to the package
 
-> GET /users/id/cards
-> Return a list of digitalized card of a given user
-> { cards: [{'id':UUID, 'hidden_pan':'1234...23'}, ...] }
-
-> POST /users/id/cards { 'pan': '123456789012'}
-> Add a digitalized pan for a given user
-> { 'id': UUID, 'hidden_pan': '1234...23'}
-
-> DEL /users/id/cards/uuid
-> Delete a digitalized card for a user
-> { 'success': true}
-
-## How to deploy ?
-
-### Prerequires 
-
-- Have python 3.8 installed with virtualenv
-
-### Use the deployment script
-
-- Open bash and execute deploy.sh
-
-```
-cd /path/to/project
-bash deploy.sh
+```lang=bash
+cd /path/to/your/client/project
+pip install /path/to/djm_sdk
 ```
 
-### Manual
+### Initialize the API client
 
+```lang=python
+from djm_sdk import api
+
+api_client = api.API("127.0.0.1", "8000")
 ```
-cd /path/to/project
+
+### Use the API methods
+
+```lang=python
+
+api_client.get_cards("user_id")
+>>> [<Object djm_sdk.model.Card>, ...]
+
+api_client.add_card("user_id", "pan")
+>>> [<Object djm_sdk.model.Card>, <Object djm_sdk.model.Card>]
+
+api_client.delete_card("user_id", "card_id")
+>>> "card_id"
+
+for card in api_client.get_cards("user_id"):
+    print(f"{card.id} : {card.hidden_pan}")
+>>> e290b6aa-03a9-11eb-8b48-3c15c2c07228 : XXXXXXXXXXXX1234
+e290b6aa-03a9-11eb-8b48-3c15c2c07289 : XXXXXXXXXXXX6789
+```
+
+## How to use as SDK developer ?
+
+### Prerequisite 
+
+- Have python 3.8 installed
+- Have `virtualenv` python package installed
+- Clone this project into your workspace
+
+### Initialize the project
+
+This is a Python project. For good practices and environments isolation purpose, we advise to run it into a virtual envrionment.
+
+```lang=bash
+cd /path/to/djm_sdk
 virtualenv .
 source bin/activate
 pip install -r requirements.txt
-gunicorn ...
 ```
 
-### Run unit-tests
+### Run the unit tests
 
-```
-cd /path/to/project
-virtualenv .
+Functions of this project are covered by unit tests. To execute them, please run this script
+
+```lang=bash
+cd /path/to/djm_sdk
 source bin/activate
-python run_tests.py
+python -m unittest unit_tests/*.py
 ```
 
+### Build the wheel
 
+```lang=bash
+cd /path/to/djm_sdk
+source bin/activate
+python setup.py bdist_wheel
+```
+
+### Use the sample of ci script
+
+This script simulates a CI script which could be implements for GitlabCI, jenkins, ... CI/CD platforms. It :
+- Initialize the virtualenv
+- Run unit tests
+- Build the wheel
+
+```lang=bash
+cd /path/to/djm_djk
+bash ci_script.sh
+```

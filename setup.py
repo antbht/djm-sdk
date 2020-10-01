@@ -11,6 +11,6 @@ setup(
     license='MIT',
     packages=find_packages(exclude=['unit_tests',]),
     install_requires=[
-
+        "requests >= 2.24.0"
     ]
 )
